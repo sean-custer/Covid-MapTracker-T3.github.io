@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Choropleth Tutorial - Leaflet</title>
+	<title>COVID-19 Map - Team 3</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,6 +68,7 @@
 
 
 	// get color depending on population density value
+	// Can change this 
 	function getColor(d) {
 		return d > 1000 ? '#800026' :
 				d > 500  ? '#BD0026' :
@@ -128,9 +129,9 @@
     
 
 
-
-
     
+    
+	//statesData refers to the us-states.js file, holds all values with regards to States
 	geojson = L.geoJson(statesData, {
 		style: style,
 		onEachFeature: onEachFeature
