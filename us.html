@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>COVID-19 Map - Team 3</title>
+	<title>CMSC 447 Team 3 - Map</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +32,7 @@
 
 <div id='map'></div>
 
-<script type="text/javascript" src="us-states.js"></script>
+<script type="text/javascript" src="MD-Counties.js"></script>
 
 <script type="text/javascript">
 
@@ -68,7 +68,6 @@
 
 
 	// get color depending on population density value
-	// Can change this 
 	function getColor(d) {
 		return d > 1000 ? '#800026' :
 				d > 500  ? '#BD0026' :
@@ -129,10 +128,10 @@
     
 
 
+
+
     
-    
-	//statesData refers to the us-states.js file, holds all values with regards to States
-	geojson = L.geoJson(statesData, {
+	geojson = L.geoJson(MDcounties, {
 		style: style,
 		onEachFeature: onEachFeature
 	}).addTo(map);
