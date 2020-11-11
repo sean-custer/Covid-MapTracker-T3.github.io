@@ -165,6 +165,37 @@
 
 </script>
 
+<p id="covid">Nothing retrieved so far...</p>
+	<form id="form"role="search"> 
+		<input type="search" id="query" name="q" placeholder="Search..." >
+		<button type="button" onclick='displayData()' >Search </button>
+
+	</form>
+		<script>
+			f = document.getElementById('form')
+		
+			const q = document.getElementById('query');
+			const loc = "http://127.0.0.1:5000/"
+			console.log(loc + q.value)
+			const l = '';
+		async function retrieveData() {
+			let response = await fetch(loc + q.value, {
+				mode: 'cors'
+			});
+			return response;
+		}
+
+        function displayData() {
+          retrieveData().then(response => response.json()).
+             then(json => {
+                //just to print it to screen/log
+                let data = JSON.stringify(json);
+                console.log(">>" + data + "<<");
+                document.getElementById("covid").innerHTML = data
+             }
+          )
+        }
+		</script>
 
 
 </body>
