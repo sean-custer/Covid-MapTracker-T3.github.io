@@ -163,6 +163,7 @@
 
 	legend.addTo(map);
 
+
 </script>
 
 <p id="covid">Nothing retrieved so far...</p>
@@ -171,7 +172,20 @@
 		<button type="button" onclick='displayData()' >Search </button>
 
 	</form>
+	
+	<p>Example search formats below:</p>
+
+	<pre>
+YYYY-MM-DD/State
+
+YYYY-MM-DD/State/County
+
+YYYY-MM-DD/State/Prison
+ 
+	</pre>
+	
 		<script>
+		
 			f = document.getElementById('form')
 		
 			const q = document.getElementById('query');
@@ -179,24 +193,47 @@
 			console.log(loc + q.value)
 			const l = '';
 		async function retrieveData() {
+			//try{	
 			let response = await fetch(loc + q.value, {
-				mode: 'cors'
-			});
-			return response;
+					mode: 'cors'
+				});
+				return response;
+			//}catch(err){
+			
+			//document.getElementById("covid").innerHTML = "Undefined format"
+			
+			//}
+			
 		}
 
         function displayData() {
+		
           retrieveData().then(response => response.json()).
              then(json => {
                 //just to print it to screen/log
-                let data = JSON.stringify(json);
-                console.log(">>" + data + "<<");
-                document.getElementById("covid").innerHTML = data
+                //let data = JSON.stringify(json);
+				//var data = JSON.parse(json);
+                console.log(">>" + json.type + "<<");
+				if(json.type == "s"){
+					document.getElementById("covid").innerHTML = "By "+ json.date + " in " + json.state +  " there were " + json.cases + " cases and " + json.deaths + " deaths."
+				}else if(json.type == "c"){
+					document.getElementById("covid").innerHTML = "By "+ json.date + " in " + json.county + " County, "+ json.state +  " there were " + json.cases + " cases and " + json.deaths + " deaths."
+				}else if(json.type == "p"){
+					document.getElementById("covid").innerHTML = "By "+ json.date + " in " + json.prison + ", "+ json.state +  " there were " + json.cases + " cases and " + json.deaths + " deaths."
+				}else if(json.type == "f"){
+				
+					document.getElementById("covid").innerHTML = "What you searched for does not exist. Try Again."
+				
+				}else{
+					document.getElementById("covid").innerHTML = "Undefined format"
+				}
+			
+
              }
           )
+		  
         }
 		</script>
-
-
-</body>
+	
+   </body>
 </html>
