@@ -15,13 +15,13 @@
 import os
 
 def findDensity(stateStr, countyStr, stateInfo):
-
+    
     for i in range(len(stateInfo)):
-
-        if((stateInfo[i][0] == None) or (stateInfo[i][1] == None)):
-            return None
-
-        elif (stateInfo[i][0].lower() == stateStr.lower()) and (countyStr.lower() in stateInfo[i][1].lower()):
+        
+        #if((stateInfo[i][0] == None) or (stateInfo[i][1] == None)):
+        #    break
+        
+        if (stateInfo[i][0] == stateStr) and (countyStr in stateInfo[i][1]):             
             return stateInfo[i][2]
 
 
@@ -31,8 +31,18 @@ def getAbbr(name, stateArr):
     for i in range(len(stateArr)):
 
         if name.lower() == stateArr[i]['state'].lower():
-           
+            
             return stateArr[i]['abbr']
+       
+    return name
+
+def getFullName(name, stateArr):
+
+    for i in range(len(stateArr)):
+        if name.lower() == stateArr[i]['abbr'].lower():
+            return stateArr[i]['state']
+        
+    return name
 
 fileToRead = "C:\\Users\\Sean\\Desktop\\School\\Senior Year\\CMSC 447\\Covid-MapTracker-T3-Site\\Covid-MapTracker-T3.github.io\\newcounties.csv"
 
@@ -63,7 +73,7 @@ for line in newFile:
     #Change this date depending on what day you want to display COVID cases for
     #Format: [StateAbbr, County, numCases]
     tempStateInfo = []
-    if(line[0] == '2020-11-10'):
+    if(line[0] == '2020-12-07'):
         state = getAbbr(line[2], stateAbbr) 
         tempStateInfo.append(state)
         tempStateInfo.append(line[1])
@@ -74,9 +84,7 @@ for line in newFile:
             numCases = int(line[3])
 
         tempStateInfo.append(str(numCases))
-        print(tempStateInfo)
         stateInfo.append(tempStateInfo)
-        
 
 #   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #   -------------------------------------------------------------------------------
@@ -94,8 +102,7 @@ newFile = "C:\\Users\\Sean\\Desktop\\School\\Senior Year\\CMSC 447\\Covid-MapTra
 
 f4 = open(newFile, 'w')
 
-#Write to newFile line by line, and every third line add the density for the corresponding state abbr..
-counter = 1
+#Write to newFile line by line, and every line containing 'geometry', add the density for the corresponding state abbr
 for i in range(9635):
     
     if('"geometry"' in countyFile[i]):
@@ -108,13 +115,12 @@ for i in range(9635):
         #Use 13th index of countyStr for county name
         countyStr = newStr2[0].split('"')
 
-        numCases = findDensity(stateStr[2], countyStr[13], stateInfo)
+        newNumCases = findDensity(stateStr[2], countyStr[13], stateInfo)
 
-
-        if numCases == None:
-            numCases = str(0)
+        if newNumCases == None:
+            newNumCases = str(0)
         
-        newStr2[1] = ', "density":' + str(numCases) + '}'
+        newStr2[1] = ', "density":' + str(newNumCases) + '}'
 
         strToAdd = newStr[0] + newStr2[1] + newStr[1] + '}}\n'
         
