@@ -77,11 +77,7 @@ for line in newFile:
         state = getAbbr(line[2], stateAbbr) 
         tempStateInfo.append(state)
         tempStateInfo.append(line[1])
-        #Normalize the gradient for display purposes
-        if int(line[3]) > 2000:
-            numCases = int(line[3]) // 2
-        else:
-            numCases = int(line[3])
+        numCases = int(line[3])
 
         tempStateInfo.append(str(numCases))
         stateInfo.append(tempStateInfo)
