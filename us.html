@@ -188,16 +188,16 @@ YYYY-MM-DD/State/Prison
 			console.log(loc + q.value)
 			const l = '';
 		async function retrieveData() {
-			try{	
+			//try{	
 			let response = await fetch(loc + q.value, {
 					mode: 'cors'
 				});
 				return response;
-			}catch(err){
+			//}catch(err){
 			
-			document.getElementById("covid").innerHTML = "Undefined format"
+			//document.getElementById("covid").innerHTML = "Undefined format"
 			
-			}
+			//}
 			
 		}
 
