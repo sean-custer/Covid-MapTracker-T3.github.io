@@ -1,0 +1,7 @@
+in powershell:
+Set-ExecutionPolicy unrestricted (run as admin)
+Set-ExecutionPolicy restricted
+
+venv\Scripts\activate
+$env:FLASK_APP = "Flasktest.py"
+set FLASK_APP=Flasktest.py
